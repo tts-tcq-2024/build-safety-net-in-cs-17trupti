@@ -19,18 +19,7 @@ public class Soundex
 
         StringBuilder soundex = BuildSoundexBase(name);
 
-        int codeCount = 0;
-        char prevCode = GetSoundexCode(name[0]);
-
-        for (int i = 1; i < name.Length && codeCount < 3; i++)
-        {
-            if (ShouldSkipCharacter(name, i, prevCode)) continue;
-
-            char currentCode = GetSoundexCode(name[i]);
-            soundex.Append(currentCode);
-            prevCode = currentCode;
-            codeCount++;
-        }
+        ProcessRemainingLetters(name, soundex);
 
         PadWithZeros(soundex);
 
@@ -46,15 +35,29 @@ public class Soundex
         return soundex;
     }
 
+    private static void ProcessRemainingLetters(string name, StringBuilder soundex)
+    {
+        int codeCount = 0;
+        char prevCode = GetSoundexCode(name[0]);
+
+        for (int i = 1; i < name.Length && codeCount < 3; i++)
+        {
+            if (ShouldSkipCharacter(name, i, prevCode)) continue;
+
+            char currentCode = GetSoundexCode(name[i]);
+            soundex.Append(currentCode);
+            prevCode = currentCode;
+            codeCount++;
+        }
+    }
+
     private static bool ShouldSkipCharacter(string name, int index, char prevCode)
     {
         char currentChar = char.ToUpper(name[index]);
         if (IsVowelOrIgnored(currentChar)) return true;
 
         char currentCode = GetSoundexCode(currentChar);
-        if (currentCode == prevCode || IsHOrWSeparated(name, index)) return true;
-
-        return false;
+        return currentCode == prevCode || IsHOrWSeparated(name, index);
     }
 
     private static bool IsVowelOrIgnored(char c) => VowelsAndIgnored.Contains(c);
