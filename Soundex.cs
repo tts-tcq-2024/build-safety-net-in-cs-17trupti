@@ -36,19 +36,24 @@ public class Soundex
     }
 
     private static void ProcessRemainingLetters(string name, StringBuilder soundex)
-    {
+    { 
         int codeCount = 0;
         char prevCode = GetSoundexCode(name[0]);
-
+        
         for (int i = 1; i < name.Length && codeCount < 3; i++)
         {
-            if (ShouldSkipCharacter(name, i, prevCode)) continue;
-
-            char currentCode = GetSoundexCode(name[i]);
-            soundex.Append(currentCode);
-            prevCode = currentCode;
-            codeCount++;
+            if (ShouldSkipCurrentLetter(name, i, prevCode)) continue;
+            
+            AppendCurrentCode(name, soundex, ref prevCode, ref codeCount, i);
         }
+    }
+    
+    private static void AppendCurrentCode(string name, StringBuilder soundex, ref char prevCode, ref int codeCount, int index)
+    {
+        char currentCode = GetSoundexCode(name[index]);
+        soundex.Append(currentCode);
+        prevCode = currentCode;
+        codeCount++;
     }
 
     private static bool ShouldSkipCharacter(string name, int index, char prevCode)
