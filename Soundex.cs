@@ -36,10 +36,15 @@ public class Soundex
     }
 
     private static void ProcessRemainingLetters(string name, StringBuilder soundex)
-    { 
+    {
         int codeCount = 0;
         char prevCode = GetSoundexCode(name[0]);
         
+        ProcessLettersInName(name, ref codeCount, ref prevCode, soundex);
+    }
+    
+    private static void ProcessLettersInName(string name, ref int codeCount, ref char prevCode, StringBuilder soundex)
+    {
         for (int i = 1; i < name.Length && codeCount < 3; i++)
         {
             if (ShouldSkipCurrentLetter(name, i, prevCode)) continue;
