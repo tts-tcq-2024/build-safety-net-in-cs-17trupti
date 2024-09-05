@@ -54,16 +54,18 @@ public class Soundex
             char currentChar = name[i];
             char currentCode = GetSoundexCode(currentChar);
             
-            bool shouldProcess = !IsVowelOrIgnored(currentChar) && currentCode != prevCode && !IsHOrWSeparated(name, i);
-            
-            if (shouldProcess)
+            if (ShouldProcess(currentChar, currentCode, prevCode, name, i))
             {
-                // Append soundex code and update variables
                 soundex.Append(currentCode);
                 prevCode = currentCode;
                 codeCount++;
             }
         }
+    }
+    
+    private static bool ShouldProcess(char currentChar, char currentCode, char prevCode, string name, int index)
+    {
+        return !IsVowelOrIgnored(currentChar) && currentCode != prevCode && !IsHOrWSeparated(name, index);
     }
 
     private static bool IsVowelOrIgnored(char c) => VowelsAndIgnored.Contains(c);
