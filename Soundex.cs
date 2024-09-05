@@ -46,25 +46,26 @@ public class Soundex
     private static void ProcessLettersInName(string name, ref int codeCount, ref char prevCode, StringBuilder soundex)
     {
         int length = name.Length;
-
-        if (length <= 1 || codeCount >= 3) return; // Simplified guard clause
-
+        
+        if (length <= 1 || codeCount >= 3) return;
+        
         for (int i = 1; i < length && codeCount < 3; i++)
         {
             char currentChar = name[i];
             char currentCode = GetSoundexCode(currentChar);
-
-            if (IsVowelOrIgnored(currentChar) || currentCode == prevCode || IsHOrWSeparated(name, i))
+            
+            bool shouldProcess = !IsVowelOrIgnored(currentChar) && currentCode != prevCode && !IsHOrWSeparated(name, i);
+            
+            if (shouldProcess)
             {
-                continue;
+                // Append soundex code and update variables
+                soundex.Append(currentCode);
+                prevCode = currentCode;
+                codeCount++;
             }
-
-            soundex.Append(currentCode);
-            prevCode = currentCode;
-            codeCount++;
         }
     }
-    
+
     private static bool IsVowelOrIgnored(char c) => VowelsAndIgnored.Contains(c);
 
     private static void PadWithZeros(StringBuilder soundex)
