@@ -45,11 +45,13 @@ public class Soundex
 
     private static void ProcessLettersInName(string name, ref int codeCount, ref char prevCode, StringBuilder soundex)
     {
-        for (int i = 1; i < name.Length && codeCount < 3; i++)
+        int length = name.Length;
+        for (int i = 1; i < length && codeCount < 3; i++)
         {
-            if (ShouldSkipCurrentLetter(name, i, prevCode)) continue;
-            
-            AppendCurrentCode(name, soundex, ref prevCode, ref codeCount, i);
+            if (!ShouldSkipCurrentLetter(name, i, prevCode))
+            {
+                AppendCurrentCode(name, soundex, ref prevCode, ref codeCount, i);
+            }
         }
     }
     
