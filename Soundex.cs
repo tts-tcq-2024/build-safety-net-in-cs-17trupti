@@ -45,27 +45,29 @@ public class Soundex
 
     private static void ProcessLettersInName(string name, ref int codeCount, ref char prevCode, StringBuilder soundex)
     {
-        int length = name.Length;
-        
-        if (length <= 1 || codeCount >= 3) return;
-        
-        for (int i = 1; i < length && codeCount < 3; i++)
+        for (int i = 1; i < name.Length && codeCount < 3; i++)
         {
-            char currentChar = name[i];
-            char currentCode = GetSoundexCode(currentChar);
+            if (ShouldSkipCurrentLetter(name, i, prevCode)) continue;
             
-            if (ShouldProcess(currentChar, currentCode, prevCode, name, i))
-            {
-                soundex.Append(currentCode);
-                prevCode = currentCode;
-                codeCount++;
-            }
+            AppendCurrentCode(name, soundex, ref prevCode, ref codeCount, i);
         }
     }
     
-    private static bool ShouldProcess(char currentChar, char currentCode, char prevCode, string name, int index)
+    private static void AppendCurrentCode(string name, StringBuilder soundex, ref char prevCode, ref int codeCount, int index)
     {
-        return !IsVowelOrIgnored(currentChar) && currentCode != prevCode && !IsHOrWSeparated(name, index);
+        char currentCode = GetSoundexCode(name[index]);
+        soundex.Append(currentCode);
+        prevCode = currentCode;
+        codeCount++;
+    }
+    
+    private static bool ShouldSkipCurrentLetter(string name, int index, char prevCode)
+    {
+        char currentChar = char.ToUpper(name[index]);
+        if (IsVowelOrIgnored(currentChar)) return true;
+        
+        char currentCode = GetSoundexCode(currentChar);
+        return currentCode == prevCode || IsHOrWSeparated(name, index);
     }
 
     private static bool IsVowelOrIgnored(char c) => VowelsAndIgnored.Contains(c);
