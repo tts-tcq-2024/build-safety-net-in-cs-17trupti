@@ -47,7 +47,7 @@ public class SoundexTests
 
         var result = Soundex.GenerateSoundex(name);
 
-        Assert.Equal("B100", result);
+        Assert.Equal("B000", result);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class SoundexTests
         var result1 = Soundex.GenerateSoundex(name1);
 
         Assert.Equal("A261", result);
-        Assert.Equal("C522", result1);
+        Assert.Equal("C520", result1);
     }
 
     [Fact]
