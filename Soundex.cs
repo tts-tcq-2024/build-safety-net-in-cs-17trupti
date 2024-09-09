@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using System.Collections.Generic;
 
 public class Soundex
 {
@@ -22,36 +21,43 @@ public class Soundex
             return string.Empty;
         }
 
-        string processedName = RemoveUnnecessaryCharacters(name);
-        StringBuilder soundex = new StringBuilder();
-        soundex.Append(char.ToUpper(name[0]));
+        StringBuilder soundex = InitializeSoundex(name);
 
-        char prevCode = GetSoundexCode(name[0]);
-
-        for (int i = 1; i < processedName.Length && soundex.Length < 4; i++)
-        {
-            char code = GetSoundexCode(processedName[i]);
-            if (code != '0' && code != prevCode)
-            {
-                soundex.Append(code);
-                prevCode = code;
-            }
-        }
+        ProcessLettersForSoundex(name, soundex);
 
         return PadSoundexCode(soundex);
     }
 
-    private static string RemoveUnnecessaryCharacters(string input)
+    private static StringBuilder InitializeSoundex(string name)
     {
-        StringBuilder result = new StringBuilder();
-        foreach (char c in input)
+        StringBuilder soundex = new StringBuilder();
+        soundex.Append(char.ToUpper(name[0]));
+        return soundex;
+    }
+
+    private static void ProcessLettersForSoundex(string name, StringBuilder soundex)
+    {
+        char prevCode = GetSoundexCode(name[0]);
+
+        for (int i = 1; i < name.Length && soundex.Length < 4; i++)
         {
-            if (!"AEIOUYHW".Contains(char.ToUpper(c)))
-            {
-                result.Append(c);
-            }
+            TryAppendSoundexCode(name[i], soundex, ref prevCode);
         }
-        return result.ToString();
+    }
+
+    private static void TryAppendSoundexCode(char letter, StringBuilder soundex, ref char prevCode)
+    {
+        char code = GetSoundexCode(letter);
+        if (ShouldAppendCode(code, prevCode))
+        {
+            soundex.Append(code);
+            prevCode = code;
+        }
+    }
+
+    private static bool ShouldAppendCode(char code, char prevCode)
+    {
+        return code != '0' && code != prevCode;
     }
 
     private static char GetSoundexCode(char c)
