@@ -82,4 +82,5 @@ public class SoundexTests
 
         Assert.Equal("Q000", result);
     }
+    
 }
