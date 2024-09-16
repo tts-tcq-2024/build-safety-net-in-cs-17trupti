@@ -74,4 +74,5 @@ public class Soundex
         }
         return soundex.Length > 4 ? soundex.ToString().Substring(0, 4) : soundex.ToString();
     }
+    
 }
