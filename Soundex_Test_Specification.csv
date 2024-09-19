@@ -1,0 +1,15 @@
+Test Case ID,Test Description,Input,Expected Output,Actual Output,Pass/Fail
+TC_01,Input is empty,,,,Passed
+TC_02,Input with single character (non-mapped letter),A,A000,A000,Passed
+TC_03,Input With single mapped letter,B,B000,B000,Passed
+TC_04,Input with all letters of same soundex group,BB,B100,B100,Passed
+TC_05,Input with multiple soundex groups,Robert,R163,R163,Passed
+TC_06,Input with consecutive letters from the same soundex group,Rupert,R163,R163,Passed
+TC_07,Input with different soundex groups,Ashcraft,A261,A261,Passed
+TC_08,Input containing characters not in soundex mapping (like vowles),Euler,E460,E460,Passed
+TC_09,Input with lowercase letters,rubin,R150,R150,Passed
+TC_10,Input with characters of same soundex group but separated by vowel,Bakes,B220,B220,Passed
+TC_11,Input with max output size of 4,Washington,W252,W252,Passed
+TC_12,Input with name length less than 4 after processing,Abe,A100,A100,Passed
+TC_13,Input with characters resulting in soundex shorter than 4,Omar,O560,O560,Passed
+TC_14,Input containing repeated letters with soundex code,Tennessee,T520,T520,Passed
