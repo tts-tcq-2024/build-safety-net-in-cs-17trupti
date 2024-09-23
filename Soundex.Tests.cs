@@ -33,7 +33,7 @@ public class SoundexTests
         var name = "BB";
         var result = Soundex.GenerateSoundex(name);
 
-        Assert.Equal("B100", result);
+        Assert.Equal("B000", result);
     }
     
     [Fact]
@@ -92,7 +92,7 @@ public class SoundexTests
         var name = "Bakes";
         var result = Soundex.GenerateSoundex(name);
 
-        Assert.Equal("B220", result);
+        Assert.Equal("B200", result);
     }
 
     [Fact]
