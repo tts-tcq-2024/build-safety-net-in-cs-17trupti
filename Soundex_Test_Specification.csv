@@ -1,0 +1,14 @@
+Test No.,Testcase Name,Test Description,Input,Expected Output
+1,GenerateSoundex_ShouldReturnEmptySoundexCode_WhenInputIsEmpty,Input is empty,"""""",""""""
+2,GenerateSoundex_shouldReturnValidCode_WhenInputIsSingleNonMappedLetter,Input with single character (non-mapped letter),A,A000
+3,GenerateSoundex_shouldReturnValidCode_WhenInputIsSingleMappedLetter,Input With single mapped letter,B,B000
+4,GenerateSoundex_shouldReturnValidCode_WhenInputWithAllLettersOfSameSoundexGroup,Input with all letters of same soundex group,BB,B000
+5,GenerateSoundex_shouldReturnValidCode_WhenInputWithMultipleSoundexGroups,Input with multiple soundex groups,Robert,R163
+6,GenerateSoundex_shouldReturnValidCode_WhenInputWithConsecutiveLettersFromSameSoundexGroups,Input with consecutive letters from the same soundex group,Rupert,R163
+7,GenerateSoundex_shouldIgnoreVowelCharcters,Input containing characters not in soundex mapping (like vowels),Euler,E460
+8,GenerateSoundex_shouldReturnValidCode_WhenInputWithLowerCaseLetters,Input with lowercase letters,rubin,R150
+9,GenerateSoundex_shouldHandelInputWithCharactersOfSameSoundexGroupButSeperatedByVowel,Input with characters of same soundex group but separated by vowel,Bakes,B200
+10,GenerateSoundex_ShouldHandleLongNamesByTruncatingToFourCharacters,Input with max output size of 4,Washington,W252
+11,GenerateSoundex_ShouldPadWithZeros_WhenNameHasFewerThanFourDistinctCodes,Input with name length less than 4 after processing,Abe,A100
+12,GenerateSoundex_ShouldPadWithZeros_WhenInputWithLettersResultingWithSoundexLesserThanFour,Input with characters resulting in soundex shorter than 4,Omar,O560
+13,GenerateSoundex_shouldReturnValidCode_WhenInputContainingRepeatedLettersWithSoundexCode,Input containing repeated letters with soundex code,Tennessee,T520
