@@ -10,7 +10,7 @@ public class SoundexTests
     }
 
     [Fact]
-    public void GenerateSoundex_shouldReturnValidCode_WhenInputIsSingleNon-MappedLetter()
+    public void GenerateSoundex_shouldReturnValidCode_WhenInputIsSingleNon_MappedLetter()
     {
         var name = "A";
         var result = Soundex.GenerateSoundex(name);
